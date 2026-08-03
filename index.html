@@ -1,9 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Pamo´s Pokedex</title>
+
+        <link
+            rel="shortcut icon"
+            href="./assets/icons/favicon.png"
+            type="image/x-icon"
+        />
+
+        <link rel="stylesheet" href="./styles/standard.css" />
+        <link rel="stylesheet" href="./styles/font.css" />
+        <link rel="stylesheet" href="style.css" />
+
+        <script src="./scripts/db.js" defer></script>
+        <script src="./scripts/templates.js" defer></script>
+        <script src="script.js" defer></script>
     </head>
-    <body></body>
+    <body>
+        <header class="header">
+            <section class="header-content">
+                <h1>Pamo´s Pokedex</h1>
+                <section class="search-section">
+                    <input id="searchInput" type="text" placeholder="Suche" />
+                    <img
+                        src="./assets/img/375px-Hauptartwork_921.png"
+                        alt="Pamo Img"
+                    />
+                </section>
+            </section>
+        </header>
+    </body>
 </html>
