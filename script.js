@@ -8,7 +8,7 @@ async function getTypes() {
 }
 
 async function getData() {
-    for (let k = 0; k < 10; k++) {
+    for (let k = 0; k < 20; k++) {
         const response = await fetch(
             `https://pokeapi.co/api/v2/pokemon/${k + 1}`,
         );
@@ -26,23 +26,29 @@ function renderPkmn(pokemonList) {
     let t1;
     let t2;
 
-    // console.log(TYPES[17]);
-
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         t1 = setType(pokemonList[i].types[0].type.name);
         if (pokemonList[i].types.length > 1)
             t2 = setType(pokemonList[i].types[1].type.name);
         else t2 = "";
 
+        let nr;
+        if (pokemonList[i].id < 10) nr = "#000";
+        else if (pokemonList[i].id < 100) nr = "#00";
+        else if (pokemonList[i].id < 999) nr = "#0";
+        else nr = "#";
+        let pID = nr + pokemonList[i].id;
+
         PKMNREF.innerHTML += /*html*/ `
             <div class="pkmn">
                 <div class="card-header">
-                    <p>#${pokemonList[i].id}</p>
-                    <h2>${pokemonList[i].name}</h2>
+                    <p>${pID}</p>
+                    <h2>${pokemonList[i].name.toUpperCase()}</h2>
                 </div>
-                <img class="pkmn-img"src="${pokemonList[i].sprites.front_default}" alt="">
-
-                <div>
+                <div class="pkmn-img">
+                    <img src="${pokemonList[i].sprites.front_default}" alt="">
+                </div>
+                <div class="pkmn-types">
                     <img src="${t1}" alt="">
                     <img src="${t2}" alt="">
                 </div>
