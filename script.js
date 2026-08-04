@@ -1,36 +1,19 @@
-async function getTypes() {
-    for (let t = 0; t < 18; t++) {
-        let typ = await fetch(`https://pokeapi.co/api/v2/type/${t + 1}`);
-        let typFromJSN = await typ.json();
-        TYPES[t] =
-            typFromJSN.sprites["generation-viii"]["sword-shield"].symbol_icon;
-    }
-}
-
-async function getData() {
-    for (let k = 0; k < 20; k++) {
-        const response = await fetch(
-            `https://pokeapi.co/api/v2/pokemon/${k + 1}`,
-        );
-        const responseFromJSON = await response.json();
-        POKEMON.push(responseFromJSON);
-    }
-    console.log(POKEMON);
+function init() {
+    getTypes();
     setTimeout(() => {
-        renderPkmn(POKEMON);
+        getData();
     }, 200);
 }
 
 function renderPkmn(pokemonList) {
     PKMNREF.innerHTML = "";
-    let t1;
-    let t2;
+    let imgT1;
+    let imgT2;
 
-    for (let i = 0; i < 20; i++) {
-        t1 = setType(pokemonList[i].types[0].type.name);
-        if (pokemonList[i].types.length > 1)
-            t2 = setType(pokemonList[i].types[1].type.name);
-        else t2 = "";
+    for (let i = 0; i < renderCount; i++) {
+        imgT1 = setType(pokemonList[i].typ1);
+        if (pokemonList[i].typ2 != "") imgT2 = setType(pokemonList[i].typ2);
+        else imgT2 = "";
 
         let nr;
         if (pokemonList[i].id < 10) nr = "#000";
@@ -46,15 +29,60 @@ function renderPkmn(pokemonList) {
                     <h2>${pokemonList[i].name.toUpperCase()}</h2>
                 </div>
                 <div class="pkmn-img">
-                    <img src="${pokemonList[i].sprites.front_default}" alt="">
+                    <img src="${pokemonList[i].img}" alt="">
                 </div>
                 <div class="pkmn-types">
-                    <img src="${t1}" alt="">
-                    <img src="${t2}" alt="">
+                    <img src="${imgT1}" alt="">
+                    <img src="${imgT2}" alt="">
                 </div>
             <div>
         `;
     }
+}
+
+async function getTypes() {
+    for (let t = 0; t < 18; t++) {
+        let typ = await fetch(`https://pokeapi.co/api/v2/type/${t + 1}`);
+        let typFromJSN = await typ.json();
+        TYPES[t] =
+            typFromJSN.sprites["generation-viii"]["sword-shield"].symbol_icon;
+    }
+}
+
+async function getData() {
+    for (let k = 0; k < renderCount; k++) {
+        const response = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${k + 1}`,
+        );
+        const responseFromJSON = await response.json();
+        // POKEMON.push(responseFromJSON);
+        setStats(responseFromJSON);
+    }
+    // console.log(POKEMON);
+
+    setTimeout(() => {
+        renderPkmn(POKEMON);
+    }, 200);
+}
+
+function setStats(responseFromJSON) {
+    let obj = {};
+    obj.name = responseFromJSON.name;
+    obj.id = responseFromJSON.id;
+    obj.img = responseFromJSON.sprites.front_default;
+    obj.typ1 = responseFromJSON.types[0].type.name;
+    if (responseFromJSON.types.length > 1)
+        obj.typ2 = responseFromJSON.types[1].type.name;
+    else obj.typ2 = "";
+
+    obj.hp = responseFromJSON.stats[0]["base_stat"];
+    obj.a = responseFromJSON.stats[1]["base_stat"];
+    obj.v = responseFromJSON.stats[2]["base_stat"];
+    obj.sa = responseFromJSON.stats[3]["base_stat"];
+    obj.sv = responseFromJSON.stats[4]["base_stat"];
+    obj.i = responseFromJSON.stats[5]["base_stat"];
+
+    POKEMON.push(obj);
 }
 
 function setType(typing) {
@@ -117,8 +145,3 @@ function setType(typing) {
     }
     return typ;
 }
-
-getTypes();
-setTimeout(() => {
-    getData();
-}, 1000);
