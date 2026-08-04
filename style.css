@@ -31,6 +31,7 @@
             input {
                 width: 180px;
                 height: 30px;
+
                 border: 2px solid black;
                 border-radius: 40px;
                 padding: 8px;
@@ -38,6 +39,7 @@
                 font-size: 22px;
                 font-weight: bold;
                 line-height: 100%;
+                text-align: center;
             }
         }
     }
@@ -161,9 +163,11 @@ main {
             border: 8px solid black;
             border-radius: 42%;
             padding: 8px;
+            margin-top: 20px;
             font-size: 42px;
             font-weight: bold;
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: rgba(0, 0, 0, 0.4);
+            color: rgba(247, 247, 107, 0.8);
         }
         .load-btn:hover {
             cursor: pointer;

@@ -10,7 +10,7 @@ function renderPkmn(pokemonList) {
     let imgT1;
     let imgT2;
 
-    for (let i = 0; i < renderCount; i++) {
+    for (let i = 0; i < pokemonList.length; i++) {
         imgT1 = setType(pokemonList[i].typ1);
         if (pokemonList[i].typ2 != "") imgT2 = setType(pokemonList[i].typ2);
         else imgT2 = "";
@@ -64,7 +64,7 @@ async function getTypes() {
 }
 
 async function getData() {
-    for (let k = forStart; k < renderCount; k++) {
+    for (let k = forStart; k < dataCount; k++) {
         if (dataStart == 0) dataStart = 1;
         const response = await fetch(
             `https://pokeapi.co/api/v2/pokemon/${dataStart + k}`,
@@ -163,7 +163,32 @@ function setType(typing) {
 }
 
 function loadMore() {
-    renderCount = renderCount + 20;
+    dataCount = dataCount + 20;
     forStart = forStart + 20;
     getData();
+}
+
+function searchStart() {
+    const inputRef = document.getElementById(`searchInput`);
+    inputRef.onkeydown = function (event) {
+        if (event.key === "Enter") {
+            searchFunction(inputRef.value);
+        }
+    };
+}
+
+function searchFunction(input) {
+    PKMN = [];
+    if (input != "" && POKEMON.length > 0) {
+        for (let f = 0; f < POKEMON.length; f++) {
+            if (POKEMON[f].name.includes(input)) PKMN.push(POKEMON[f]);
+            else if (POKEMON[f].id == input) PKMN.push(POKEMON[f]);
+            else {
+                if (POKEMON[f].typ1.includes(input)) PKMN.push(POKEMON[f]);
+                if (POKEMON[f].typ2.includes(input)) PKMN.push(POKEMON[f]);
+            }
+        }
+    } else PKMN = POKEMON;
+    renderPkmn(PKMN);
+    input = "";
 }
