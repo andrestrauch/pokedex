@@ -1,6 +1,6 @@
+let POKEMON = [];
 let PKMN = [];
-const POKEMON = [];
-const TYPES = [];
+let TYPES = [];
 
 const PKMNREF = document.getElementById(`poke`);
 let forStart = 0;

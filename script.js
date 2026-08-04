@@ -2,42 +2,29 @@ function init() {
     getTypes();
     setTimeout(() => {
         getData();
-    }, 200);
+    }, 500);
 }
 
 function renderPkmn(pokemonList) {
     PKMNREF.innerHTML = "";
-    let imgT1;
-    let imgT2;
 
     for (let i = 0; i < pokemonList.length; i++) {
-        imgT1 = setType(pokemonList[i].typ1);
-        if (pokemonList[i].typ2 != "") imgT2 = setType(pokemonList[i].typ2);
-        else imgT2 = "";
-
-        let nr;
-        if (pokemonList[i].id < 10) nr = "#000";
-        else if (pokemonList[i].id < 100) nr = "#00";
-        else if (pokemonList[i].id < 999) nr = "#0";
-        else nr = "#";
-        let pID = nr + pokemonList[i].id;
-
         PKMNREF.innerHTML += /*html*/ `
-            <div class="pkmn">
+            <div class="pkmn" onclick="openDialog(${i})">
                 <div class="card-header">
-                    <p>${pID}</p>
+                    <p>#${pokemonList[i].id2}</p>
                     <h2>${pokemonList[i].name.toUpperCase()}</h2>
                 </div>
                 <div class="pkmn-img" id="pkmnColor${i}">
                     <img src="${pokemonList[i].img}" alt="">
                 </div>
                 <div class="pkmn-types">
-                    <img src="${imgT1}" alt="">
-                    <img src="${imgT2}" alt="">
+                    <img src="${pokemonList[i].imgT1}" alt="">
+                    <img src="${pokemonList[i].imgT2}" alt="">
                 </div>
             <div>
         `;
-        setImgColor(i);
+        setBgColor(i);
     }
     renderLoadBtn();
 }
@@ -57,18 +44,9 @@ function renderLoadBtn() {
         `;
     }
 }
-function setImgColor(i) {
+function setBgColor(i) {
     let colorRef = document.getElementById(`pkmnColor${i}`);
     colorRef.classList.add(`bg-${POKEMON[i].typ1}`);
-}
-
-async function getTypes() {
-    for (let t = 0; t < 18; t++) {
-        let typ = await fetch(`https://pokeapi.co/api/v2/type/${t + 1}`);
-        let typFromJSN = await typ.json();
-        TYPES[t] =
-            typFromJSN.sprites["generation-viii"]["sword-shield"].symbol_icon;
-    }
 }
 
 async function getData() {
@@ -88,6 +66,16 @@ async function getData() {
     }, 1000);
 }
 
+async function getTypes() {
+    for (let t = 0; t < 18; t++) {
+        let typ = await fetch(`https://pokeapi.co/api/v2/type/${t + 1}`);
+        let typFromJSN = await typ.json();
+        TYPES[t] =
+            typFromJSN.sprites["generation-viii"]["sword-shield"].symbol_icon;
+    }
+    // console.log(TYPES[11]);
+}
+
 function setStats(responseFromJSON) {
     let obj = {};
     obj.name = responseFromJSON.name;
@@ -97,6 +85,9 @@ function setStats(responseFromJSON) {
     if (responseFromJSON.types.length > 1)
         obj.typ2 = responseFromJSON.types[1].type.name;
     else obj.typ2 = "";
+    obj.imgT1 = setType(obj.typ1);
+    if (obj.typ2 != "") obj.imgT2 = setType(obj.typ2);
+    else obj.imgT2 = "";
 
     obj.hp = responseFromJSON.stats[0]["base_stat"];
     obj.a = responseFromJSON.stats[1]["base_stat"];
@@ -105,68 +96,41 @@ function setStats(responseFromJSON) {
     obj.sv = responseFromJSON.stats[4]["base_stat"];
     obj.i = responseFromJSON.stats[5]["base_stat"];
 
+    let nr;
+    if (obj.id < 10) nr = "000";
+    else if (obj.id < 100) nr = "00";
+    else if (obj.id < 999) nr = "0";
+    else nr = "";
+    obj.id2 = nr + obj.id;
+
+    // console.log(obj);
     POKEMON.push(obj);
+    PKMN = POKEMON;
 }
 
 function setType(typing) {
-    let typ;
-    switch (typing) {
-        case "normal":
-            typ = TYPES[0];
-            break;
-        case "fighting":
-            typ = TYPES[1];
-            break;
-        case "flying":
-            typ = TYPES[2];
-            break;
-        case "poison":
-            typ = TYPES[3];
-            break;
-        case "ground":
-            typ = TYPES[4];
-            break;
-        case "rock":
-            typ = TYPES[5];
-            break;
-        case "bug":
-            typ = TYPES[6];
-            break;
-        case "ghost":
-            typ = TYPES[7];
-            break;
-        case "steel":
-            typ = TYPES[8];
-            break;
-        case "fire":
-            typ = TYPES[9];
-            break;
-        case "water":
-            typ = TYPES[10];
-            break;
-        case "grass":
-            typ = TYPES[11];
-            break;
-        case "electric":
-            typ = TYPES[12];
-            break;
-        case "psychic":
-            typ = TYPES[13];
-            break;
-        case "ice":
-            typ = TYPES[14];
-            break;
-        case "dragon":
-            typ = TYPES[15];
-            break;
-        case "dark":
-            typ = TYPES[16];
-            break;
-        case "fairy":
-            typ = TYPES[17];
-            break;
-    }
-    return typ;
+    let type;
+    if (typing == "normal") type = TYPES[0];
+    else if (typing == "fighting") type = TYPES[1];
+    else if (typing == "flying") type = TYPES[2];
+    else if (typing == "poison") type = TYPES[3];
+    else if (typing == "ground") type = TYPES[4];
+    else if (typing == "rock") type = TYPES[5];
+    else if (typing == "bug") type = TYPES[6];
+    else if (typing == "ghost") type = TYPES[7];
+    else if (typing == "steel") type = TYPES[8];
+    else if (typing == "fire") type = TYPES[9];
+    else if (typing == "water") type = TYPES[10];
+    else if (typing == "grass") type = TYPES[11];
+    else if (typing == "electric") type = TYPES[12];
+    else if (typing == "psychic") type = TYPES[13];
+    else if (typing == "ice") type = TYPES[14];
+    else if (typing == "dragon") type = TYPES[15];
+    else if (typing == "dark") type = TYPES[16];
+    else if (typing == "fairy") type = TYPES[17];
+    else type = "";
+
+    return type;
 }
 
 function loadMore() {
@@ -196,10 +160,11 @@ function searchFunction(input) {
         for (let f = 0; f < POKEMON.length; f++) {
             if (POKEMON[f].name.includes(input.value)) PKMN.push(POKEMON[f]);
             else if (POKEMON[f].id == input.value) PKMN.push(POKEMON[f]);
+            else if (POKEMON[f].id2 == input.value) PKMN.push(POKEMON[f]);
             else {
                 if (POKEMON[f].typ1.includes(input.value))
                     PKMN.push(POKEMON[f]);
-                if (POKEMON[f].typ2.includes(input.value))
+                else if (POKEMON[f].typ2.includes(input.value))
                     PKMN.push(POKEMON[f]);
             }
         }
@@ -209,4 +174,25 @@ function searchFunction(input) {
     }
     input.value = "";
     renderPkmn(PKMN);
+}
+
+function openDialog(i) {
+    const dialogRef = document.getElementById(`myDialog`);
+    dialogRef.innerHTML = "";
+
+    dialogRef.showModal();
+    dialogRef.classList.add(`opened`);
+
+    dialogRef.innerHTML += /*html*/ `
+        <div class="dialog-header">
+            <button onclick="imgLeft(${i})">
+                    <img src="./assets/icons/arrow_left.png" alt="Pfeil nach Links" />
+                </button>
+            <p>#${PKMN[i].id2}</p>
+            <h2>${PKMN[i].name}</h2>
+            <button onclick="imgRight(${i})">
+                    <img src="./assets/icons/arrow_right.png" alt="Pfeil nach Rechts" />
+                </button>
+        </div>
+    `;
 }
