@@ -28,7 +28,7 @@ function renderPkmn(pokemonList) {
                     <p>${pID}</p>
                     <h2>${pokemonList[i].name.toUpperCase()}</h2>
                 </div>
-                <div class="pkmn-img">
+                <div class="pkmn-img" id="pkmnColor${i}">
                     <img src="${pokemonList[i].img}" alt="">
                 </div>
                 <div class="pkmn-types">
@@ -37,7 +37,13 @@ function renderPkmn(pokemonList) {
                 </div>
             <div>
         `;
+        setImgColor(i);
     }
+}
+
+function setImgColor(i) {
+    let colorRef = document.getElementById(`pkmnColor${i}`);
+    colorRef.classList.add(`bg-${POKEMON[i].typ1}`);
 }
 
 async function getTypes() {
@@ -51,8 +57,9 @@ async function getTypes() {
 
 async function getData() {
     for (let k = 0; k < renderCount; k++) {
+        if (dataStart == 0) dataStart = 1;
         const response = await fetch(
-            `https://pokeapi.co/api/v2/pokemon/${k + 1}`,
+            `https://pokeapi.co/api/v2/pokemon/${dataStart + k}`,
         );
         const responseFromJSON = await response.json();
         // POKEMON.push(responseFromJSON);
@@ -62,7 +69,7 @@ async function getData() {
 
     setTimeout(() => {
         renderPkmn(POKEMON);
-    }, 200);
+    }, 1000);
 }
 
 function setStats(responseFromJSON) {
