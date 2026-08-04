@@ -39,15 +39,23 @@ function renderPkmn(pokemonList) {
         `;
         setImgColor(i);
     }
+    renderLoadBtn();
 }
 
 function renderLoadBtn() {
     const loadRef = document.getElementById(`loadBtn`);
-    loadRef.innerHTML = /*html*/ `
-        <button class="load-btn" onclick="loadMore()">
-            Load more
-        </button>
-    `;
+    if (searchStatus === false) {
+        loadRef.innerHTML = /*html*/ `
+            <button class="load-btn" onclick="loadMore()">
+                Load more
+            </button>
+        `;
+    } else {
+        loadRef.innerHTML = /*html*/ `
+            <button class="load-btn" onclick="reLoad()"> Reset Search
+            </button>
+        `;
+    }
 }
 function setImgColor(i) {
     let colorRef = document.getElementById(`pkmnColor${i}`);
@@ -77,7 +85,6 @@ async function getData() {
 
     setTimeout(() => {
         renderPkmn(POKEMON);
-        renderLoadBtn();
     }, 1000);
 }
 
@@ -168,27 +175,38 @@ function loadMore() {
     getData();
 }
 
+function reLoad() {
+    searchStatus = false;
+    renderPkmn(POKEMON);
+}
+
 function searchStart() {
     const inputRef = document.getElementById(`searchInput`);
     inputRef.onkeydown = function (event) {
         if (event.key === "Enter") {
-            searchFunction(inputRef.value);
+            searchFunction(inputRef);
         }
     };
 }
 
 function searchFunction(input) {
     PKMN = [];
-    if (input != "" && POKEMON.length > 0) {
+    if (input.value != "" && POKEMON.length > 0) {
+        searchStatus = true;
         for (let f = 0; f < POKEMON.length; f++) {
-            if (POKEMON[f].name.includes(input)) PKMN.push(POKEMON[f]);
-            else if (POKEMON[f].id == input) PKMN.push(POKEMON[f]);
+            if (POKEMON[f].name.includes(input.value)) PKMN.push(POKEMON[f]);
+            else if (POKEMON[f].id == input.value) PKMN.push(POKEMON[f]);
             else {
-                if (POKEMON[f].typ1.includes(input)) PKMN.push(POKEMON[f]);
-                if (POKEMON[f].typ2.includes(input)) PKMN.push(POKEMON[f]);
+                if (POKEMON[f].typ1.includes(input.value))
+                    PKMN.push(POKEMON[f]);
+                if (POKEMON[f].typ2.includes(input.value))
+                    PKMN.push(POKEMON[f]);
             }
         }
-    } else PKMN = POKEMON;
+    } else {
+        PKMN = POKEMON;
+        searchStatus = false;
+    }
+    input.value = "";
     renderPkmn(PKMN);
-    input = "";
 }

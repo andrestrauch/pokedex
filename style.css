@@ -160,11 +160,12 @@ main {
 
         .load-btn {
             width: 300px;
+            height: 90px;
             border: 8px solid black;
             border-radius: 42%;
             padding: 8px;
             margin-top: 20px;
-            font-size: 42px;
+            font-size: 40px;
             font-weight: bold;
             background-color: rgba(0, 0, 0, 0.4);
             color: rgba(247, 247, 107, 0.8);
