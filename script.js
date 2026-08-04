@@ -41,6 +41,14 @@ function renderPkmn(pokemonList) {
     }
 }
 
+function renderLoadBtn() {
+    const loadRef = document.getElementById(`loadBtn`);
+    loadRef.innerHTML = /*html*/ `
+        <button class="load-btn" onclick="loadMore()">
+            Load more
+        </button>
+    `;
+}
 function setImgColor(i) {
     let colorRef = document.getElementById(`pkmnColor${i}`);
     colorRef.classList.add(`bg-${POKEMON[i].typ1}`);
@@ -56,7 +64,7 @@ async function getTypes() {
 }
 
 async function getData() {
-    for (let k = 0; k < renderCount; k++) {
+    for (let k = forStart; k < renderCount; k++) {
         if (dataStart == 0) dataStart = 1;
         const response = await fetch(
             `https://pokeapi.co/api/v2/pokemon/${dataStart + k}`,
@@ -69,6 +77,7 @@ async function getData() {
 
     setTimeout(() => {
         renderPkmn(POKEMON);
+        renderLoadBtn();
     }, 1000);
 }
 
@@ -151,4 +160,10 @@ function setType(typing) {
             break;
     }
     return typ;
+}
+
+function loadMore() {
+    renderCount = renderCount + 20;
+    forStart = forStart + 20;
+    getData();
 }

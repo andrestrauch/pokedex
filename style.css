@@ -69,7 +69,8 @@ main {
         background-size: cover;
 
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         padding: 20px 0;
 
         .pkmn-container {
@@ -153,6 +154,19 @@ main {
             .pkmn:hover {
                 cursor: pointer;
             }
+        }
+
+        .load-btn {
+            width: 300px;
+            border: 8px solid black;
+            border-radius: 42%;
+            padding: 8px;
+            font-size: 42px;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .load-btn:hover {
+            cursor: pointer;
         }
     }
 }
