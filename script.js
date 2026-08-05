@@ -28,6 +28,7 @@ function renderPkmn(pokemonList) {
     }
     renderLoadBtn();
 }
+
 function renderTypes(i, pokemonList) {
     const typeRef = document.getElementById(`pkmnTypes${i}`);
     typeRef.innerHTML = "";
@@ -56,6 +57,7 @@ function renderLoadBtn() {
         `;
     }
 }
+
 function setBgColor(i) {
     let colorRef = document.getElementById(`pkmnColor${i}`);
     colorRef.classList.add(`bg-${POKEMON[i].typ1}`);
@@ -114,6 +116,8 @@ function setType(typing) {
 
 function setStats(responseFromJSON) {
     let obj = {};
+    // console.log(responseFromJSON);
+
     obj.name = responseFromJSON.name;
     obj.id = responseFromJSON.id;
     obj.img = responseFromJSON.sprites.front_default;
@@ -132,6 +136,16 @@ function setStats(responseFromJSON) {
     obj.sa = responseFromJSON.stats[3]["base_stat"];
     obj.sv = responseFromJSON.stats[4]["base_stat"];
     obj.i = responseFromJSON.stats[5]["base_stat"];
+
+    obj.skill1 = responseFromJSON.abilities[0].ability.name;
+    obj.skill2 = "";
+    obj.skill3 = "";
+    if (responseFromJSON.abilities.length > 2) {
+        obj.skill3 = responseFromJSON.abilities[2].ability.name;
+    }
+    if (responseFromJSON.abilities.length > 1) {
+        obj.skill2 = responseFromJSON.abilities[1].ability.name;
+    }
 
     let nr;
     if (obj.id < 10) nr = "000";
@@ -186,22 +200,83 @@ function searchFunction(input) {
 }
 
 function openDialog(i) {
-    const dialogRef = document.getElementById(`myDialog`);
     dialogRef.innerHTML = "";
 
     dialogRef.showModal();
     dialogRef.classList.add(`opened`);
 
     dialogRef.innerHTML += /*html*/ `
-        <div class="dialog-header">
-            <button onclick="imgLeft(${i})">
+        <section class="dialog-header">
+            <div class="header-content">
+                <button onclick="imgLeft(${i})">
                     <img src="./assets/icons/arrow_left.png" alt="Pfeil nach Links" />
                 </button>
-            <p>#${PKMN[i].id2}</p>
-            <h2>${PKMN[i].name}</h2>
-            <button onclick="imgRight(${i})">
+
+                <div class="header-txt">
+                    <p>#${PKMN[i].id2}</p>
+                    <h2>${PKMN[i].name.toUpperCase()}</h2>
+                </div>
+            
+                <button onclick="imgRight(${i})">
                     <img src="./assets/icons/arrow_right.png" alt="Pfeil nach Rechts" />
                 </button>
-        </div>
+            </div>
+            <button class="close-btn" onclick="endDialog(event)">X</button>
+        </section>
+
+        <section class="dialog-img" id="dialogPkmnColor${i}">
+                    <img class="p-img" src="${PKMN[i].img}" alt="">
+                <div class="pkmn-types">
+                    <img src="${PKMN[i].imgT1}" alt="">
+                    <img src="${PKMN[i].imgT2}" alt="">
+                </div>
+        </section>
+
+        <section class="dialog-data">
+            <div class="stats">
+                <h3>STATS</h3><br> 
+                <p>HP: ${PKMN[i].hp}</p><br> 
+                <p> A: ${PKMN[i].a}</p><br>
+                <p> V: ${PKMN[i].v}</p><br>
+                <p>SA: ${PKMN[i].sa}</p><br>
+                <p>SV: ${PKMN[i].sv}</p><br>
+                <p> I: ${PKMN[i].i}</p>
+            </div>
+            <div class="abilities">
+                <h3>ABILITIES</h3><br> 
+                <p>${PKMN[i].skill1}</p><br>
+                <p>${PKMN[i].skill2}</p><br>
+                <p>${PKMN[i].skill3}</p>
+            </div>
+            
+        </section>
     `;
+    let dialogColorRef = document.getElementById(`dialogPkmnColor${i}`);
+    dialogColorRef.classList.add(`bg-${PKMN[i].typ1}`);
+}
+
+function endDialog(event) {
+    dialogRef.close();
+    dialogRef.classList.remove(`opened`);
+    event.stopPropagation();
+}
+
+function imgLeft(i) {
+    if (i == 0) {
+        i = PKMN.length - 1;
+    } else {
+        i--;
+    }
+    endDialog(event);
+    openDialog(i);
+}
+
+function imgRight(i) {
+    if (i == PKMN.length - 1) {
+        i = 0;
+    } else {
+        i++;
+    }
+    endDialog(event);
+    openDialog(i);
 }
