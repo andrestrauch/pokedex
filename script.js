@@ -253,6 +253,7 @@ function openDialog(i) {
     `;
     let dialogColorRef = document.getElementById(`dialogPkmnColor${i}`);
     dialogColorRef.classList.add(`bg-${PKMN[i].typ1}`);
+    startEventListener(event);
 }
 
 function endDialog(event) {
@@ -279,4 +280,18 @@ function imgRight(i) {
     }
     endDialog(event);
     openDialog(i);
+}
+
+function startEventListener(event) {
+    dialogRef.addEventListener("click", (event) => {
+        const rect = dialogRef.getBoundingClientRect();
+        const isInDialog =
+            event.clientX >= rect.left &&
+            event.clientX <= rect.right &&
+            event.clientY >= rect.top &&
+            event.clientY <= rect.bottom;
+        if (!isInDialog) {
+            endDialog(event);
+        }
+    });
 }
