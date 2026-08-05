@@ -1,4 +1,5 @@
 function init() {
+    count = dataCount;
     getTypes();
     setTimeout(() => {
         getData();
@@ -134,8 +135,8 @@ function setType(typing) {
 }
 
 function loadMore() {
-    dataCount = dataCount + 20;
-    forStart = forStart + 20;
+    dataCount = dataCount + count;
+    forStart = forStart + count;
     getData();
 }
 
@@ -157,17 +158,14 @@ function searchFunction(input) {
     PKMN = [];
     if (input.value != "" && POKEMON.length > 0) {
         searchStatus = true;
-        for (let f = 0; f < POKEMON.length; f++) {
-            if (POKEMON[f].name.includes(input.value)) PKMN.push(POKEMON[f]);
-            else if (POKEMON[f].id == input.value) PKMN.push(POKEMON[f]);
-            else if (POKEMON[f].id2 == input.value) PKMN.push(POKEMON[f]);
-            else {
-                if (POKEMON[f].typ1.includes(input.value))
-                    PKMN.push(POKEMON[f]);
-                else if (POKEMON[f].typ2.includes(input.value))
-                    PKMN.push(POKEMON[f]);
-            }
-        }
+        const filterPKMN = POKEMON.filter(
+            (item) =>
+                item.name.includes(input.value) ||
+                item.typ1.includes(input.value) ||
+                item.typ2.includes(input.value) ||
+                item.id2.includes(input.value),
+        );
+        PKMN = filterPKMN;
     } else {
         PKMN = POKEMON;
         searchStatus = false;
