@@ -297,8 +297,8 @@ main {
         align-items: center;
         border-bottom: 2px solid white;
         overflow: hidden;
-        gap: 32px;
-        padding: 8px;
+        /* gap: 32px; */
+        padding-left: 40px;
 
         .p-img {
             width: 35%;
@@ -311,9 +311,12 @@ main {
 
         .pkmn-types {
             height: 42%;
+            width: 55%;
             display: flex;
+            justify-content: center;
             gap: 32px;
             /* background-color: red; */
+            padding-left: 100px;
         }
     }
 
