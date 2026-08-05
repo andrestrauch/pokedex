@@ -3,7 +3,7 @@ function init() {
     getTypes();
     setTimeout(() => {
         getData();
-    }, 900);
+    }, 1000);
 }
 
 function renderPkmn(pokemonList) {
@@ -87,7 +87,7 @@ async function getData() {
 
     setTimeout(() => {
         renderPkmn(POKEMON);
-    }, 1000);
+    }, 1200);
 }
 
 function setType(typing) {
@@ -294,4 +294,53 @@ function startEventListener(event) {
             endDialog(event);
         }
     });
+}
+
+function openOptions() {
+    dialogRef.innerHTML = "";
+
+    dialogRef.showModal();
+    dialogRef.classList.add(`opened`);
+
+    dialogRef.innerHTML += /*html*/ `
+        <section class="dialog-filter">
+            <h2>Filter Options</h2>
+            <div class="filter-inputs">
+                <input typ="text" id="inputStart" placeholder="Start Nr (1-1025)">
+                <input typ="text" id="inputEnd" placeholder="End Nr (1-1025)">
+            </div>
+            <button class="filter-btn" onclick="setOptions()">Anwenden</button>
+        </section>
+    `;
+}
+
+function setOptions() {
+    let start = document.getElementById(`inputStart`).value;
+    let end = document.getElementById(`inputEnd`).value;
+
+    if (start != "" && end !== "") {
+        if (isNaN(start)) start = 0;
+        if (isNaN(end)) end = 40;
+
+        if (start == 1) start = 0;
+        else if (start > 1025) start = 1025;
+        if (end > 1025) end = 1025;
+        else if (end == 0) end = 1;
+        dataStart = start;
+        dataCount = end - start;
+        count = dataCount;
+    } else {
+        dataStart = 0;
+        dataCount = 40;
+        count = dataCount;
+    }
+
+    // console.log(dataStart);
+    // console.log(dataCount);
+
+    endDialog(event);
+    PKMNREF.innerHTML = "";
+    POKEMON = [];
+    PKMN = [];
+    getData();
 }
