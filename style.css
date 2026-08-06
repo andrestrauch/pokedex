@@ -5,7 +5,9 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.75);
     color: yellow;
-    /* position: sticky; */
+    position: fixed;
+    top: 0;
+    z-index: 1;
 
     .header-content {
         width: 100%;
@@ -111,6 +113,7 @@ main {
             gap: 8px;
             /* background-color: yellow; */
             padding: 8px;
+            margin-top: 50px;
 
             .pkmn {
                 /* display: flex; */
