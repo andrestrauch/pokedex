@@ -207,10 +207,8 @@ function searchFunction(input) {
 
 function openDialog(i) {
     dialogRef.innerHTML = "";
-
     dialogRef.showModal();
     dialogRef.classList.add(`opened`);
-
     dialogRef.innerHTML += /*html*/ `
         <section class="dialog-header">
             <div class="header-content">
@@ -231,10 +229,16 @@ function openDialog(i) {
         </section>
 
         <section class="dialog-img" id="dialogPkmnColor${i}">
-                    <img class="p-img" src="${PKMN[i].img}" alt="">
-                <div class="pkmn-types">
+            <div class="pkmn-img">
+                <img src="${PKMN[i].img}" alt="">
+            </div>
+            <div class="pkmn-types">
+                <div class="typ1">
                     <img src="${PKMN[i].imgT1}" alt="">
+                </div>
+                <div class="typ2">
                     <img src="${PKMN[i].imgT2}" alt="">
+                </div>
                 </div>
         </section>
 
@@ -249,7 +253,7 @@ function openDialog(i) {
                 <p> I: ${PKMN[i].i}</p>
             </div>
             <div class="abilities">
-                <h3>ABILITIES</h3><br> 
+                <h3>ABILITY</h3><br> 
                 <p>${PKMN[i].skill1}</p><br>
                 <p>${PKMN[i].skill2}</p><br>
                 <p>${PKMN[i].skill3}</p>
@@ -260,12 +264,16 @@ function openDialog(i) {
     let dialogColorRef = document.getElementById(`dialogPkmnColor${i}`);
     dialogColorRef.classList.add(`bg-${PKMN[i].typ1}`);
     startEventListener(event);
+    if (document.body.style.overflow == "hidden")
+        document.body.style.overflow = "";
+    else document.body.style.overflow = "hidden";
 }
 
 function endDialog(event) {
     dialogRef.close();
     dialogRef.classList.remove(`opened`);
     event.stopPropagation();
+    document.body.style.overflow = "";
 }
 
 function imgLeft(i) {
@@ -315,9 +323,10 @@ function openOptions() {
                 <input typ="text" id="inputStart" placeholder="Start Nr (1-1025)">
                 <input typ="text" id="inputEnd" placeholder="End Nr (1-1025)">
             </div>
-            <button class="filter-btn" onclick="setOptions()">Anwenden</button>
+            <button class="filter-btn" onclick="setOptions()">Load Data</button>
         </section>
     `;
+    startEventListener(event);
 }
 
 function setOptions() {

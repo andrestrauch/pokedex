@@ -33,7 +33,7 @@
             /* background-color: red; */
             display: flex;
             align-items: flex-end;
-            gap: 8px;
+            gap: 5px;
 
             .filter-btn {
                 width: 70px;
@@ -75,23 +75,30 @@
 main {
     width: 100%;
     height: 100%;
-    min-height: calc(100vh - 60px - 50px);
+    min-height: calc(100vh + 60px - 50px - 60px);
     display: flex;
     flex-direction: column;
     align-items: center;
     /* background-color: grey; */
 
     .load-txt {
-        font-size: 64px;
+        width: 300px;
+        height: 62px;
+        background-color: rgba(0, 0, 0, 0.5);
+        font-size: 26px;
         border-radius: 40px;
         border: 6px solid black;
-        padding: 16px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
     }
 
     .content {
         width: 100%;
         height: 100%;
-        min-height: calc(100vh - 60px - 50px);
+        min-height: calc(100vh + 60px - 60px - 50px);
         background-image: url("./assets/img/pamo-bg.jpg");
         background-position: center;
         background-repeat: no-repeat;
@@ -110,7 +117,7 @@ main {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 16px;
             /* background-color: yellow; */
             padding: 8px;
             margin-top: 50px;
@@ -118,7 +125,7 @@ main {
             .pkmn {
                 /* display: flex; */
                 /* flex-wrap: wrap; */
-                width: 270px;
+                width: 300px;
                 height: fit-content;
                 /* background-color: rgba(0, 0, 0, 0.65); */
                 display: flex;
@@ -143,17 +150,18 @@ main {
                     background-color: rgba(0, 0, 0, 0.65);
 
                     p {
-                        font-size: 15px;
+                        font-size: 14px;
                         font-weight: bold;
                     }
 
                     h2 {
-                        font-size: 16px;
+                        font-size: 15px;
                     }
                 }
 
                 .pkmn-img {
                     width: 100%;
+                    height: 250px;
                     /* max-height: 200px; */
                     /* background-color: rgba(0, 0, 0, 0.2); */
                     border-top: 3px solid black;
@@ -163,9 +171,8 @@ main {
                     padding: 4px 0;
 
                     img {
-                        height: 150px;
-                        width: 200px;
-                        object-fit: contain;
+                        width: 90%;
+                        object-fit: cover;
                         background-color: rgba(0, 0, 0, 0.3);
                         border-radius: 50%;
                         padding: 8px;
@@ -175,7 +182,7 @@ main {
                 .pkmn-types {
                     width: 100%;
                     height: 60px;
-                    /* background-color: green; */
+                    /* background-color: red; */
                     background-color: rgba(0, 0, 0, 0.65);
                     display: flex;
                     justify-content: center;
@@ -221,19 +228,20 @@ main {
     /* transition: all 300ms ease-in-out; */
     color: white;
     overflow: hidden;
-    padding-bottom: 8px;
+    /* padding-bottom: 8px; */
 
     .dialog-header {
         width: 100%;
-        height: auto;
+        /* height: 70px; */
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 20px;
+        gap: 10px;
         background-color: rgba(0, 0, 0, 0.3);
         font-size: 32px;
         border-bottom: 2px solid white;
         padding: 8px;
+        z-index: 2;
 
         .header-content {
             width: 92%;
@@ -244,7 +252,7 @@ main {
 
             .header-txt {
                 width: 89%;
-                height: 65px;
+                height: 100%;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -254,19 +262,27 @@ main {
                 padding: 0 8px;
 
                 h2 {
-                    height: 100%;
+                    /* height: 100%; */
                     display: flex;
                     align-items: center;
                     /* background-color: green; */
-                    font-size: 40px;
+                    font-size: clamp(
+                        1.25rem,
+                        calc(0.964rem + 1.429vw),
+                        2.25rem
+                    );
                 }
 
                 p {
-                    height: 100%;
+                    /* height: 100%; */
                     display: flex;
                     align-items: center;
                     /* background-color: green; */
-                    font-size: 30px;
+                    font-size: clamp(
+                        1.13rem,
+                        calc(0.946rem + 0.893vw),
+                        1.75rem
+                    );
                     /* padding-top: 8px; */
                 }
             }
@@ -310,47 +326,84 @@ main {
 
     .dialog-img {
         width: 100%;
-        /* height: 100%; */
-        height: 300px;
+        height: clamp(9.375rem, calc(4.911rem + 22.321vw), 25rem);
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         border-bottom: 2px solid white;
-        overflow: hidden;
         /* gap: 32px; */
-        padding-left: 40px;
 
-        .p-img {
-            width: 35%;
-            object-fit: cover;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 50%;
-            padding: 8px;
-            transform: translateY(10px);
+        .pkmn-img {
+            width: 100%;
+            height: 100%;
+            /* background-color: red; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* overflow: hidden; */
+
+            img {
+                width: 60%;
+                /* height: fit-content; */
+                object-fit: cover;
+                background-color: rgba(0, 0, 0, 0.3);
+                border-radius: 50%;
+                padding: 8px;
+                /* padding-left: 40px; */
+                transform: translateY(10px);
+                border: 2px solid black;
+                /* z-index: 1;
+                overflow: hidden; */
+            }
         }
 
         .pkmn-types {
-            height: 42%;
-            width: 55%;
+            height: 0px;
+            width: 100%;
             display: flex;
             justify-content: center;
-            gap: 32px;
-            /* background-color: red; */
-            padding-left: 100px;
+            background-color: yellow;
+
+            .typ1 {
+                z-index: 2;
+                transform: translateY(10px);
+                position: absolute;
+                left: auto;
+                img {
+                    height: 64px;
+                    /* background-color: red; */
+                    padding-right: 100px;
+                }
+            }
+
+            .typ2 {
+                z-index: 2;
+                transform: translateY(10px);
+                position: absolute;
+                right: auto;
+                img {
+                    height: 64px;
+                    margin-left: 100px;
+                    /* background-color: orange; */
+                }
+            }
         }
     }
 
     .dialog-data {
         width: 100%;
+        height: 460px;
         /* background-color: red; */
         display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
+        justify-content: center;
+        align-items: center;
         /* flex-wrap: wrap; */
         padding: 8px;
 
         .stats {
             width: 50%;
+            height: 100%;
             /* background-color: green; */
             /* display: flex; */
             text-align: center;
@@ -359,48 +412,58 @@ main {
             border: 2px solid white;
             border-top-left-radius: 40px;
             border-bottom-left-radius: 40px;
-            padding-bottom: 8px;
+            /* border-bottom-right-radius: 40px; */
+            /* padding-bottom: 8px; */
 
             h3 {
-                font-size: 48px;
+                height: 70px;
+                font-size: clamp(2.25rem, calc(2.143rem + 0.536vw), 2.63rem);
                 font-weight: bold;
                 border-bottom: 2px solid white;
                 border-collapse: collapse;
                 padding: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             p {
-                font-size: 42px;
+                font-size: 36px;
             }
         }
 
         .abilities {
             width: 50%;
-            height: 489px;
+            height: 100%;
+            /* height: 489px; */
             background-color: rgba(255, 255, 255, 0.1);
             text-align: center;
             border: 2px solid white;
             border-top-right-radius: 40px;
             border-bottom-right-radius: 40px;
-            padding-bottom: 8px;
-            overflow: hidden;
+            /* border-bottom-left-radius: 40px; */
+            /* padding-bottom: 8px; */
 
             h3 {
-                font-size: 48px;
+                height: 70px;
+                font-size: clamp(1.75rem, calc(1.5rem + 1.25vw), 2.63rem);
                 font-weight: bold;
                 border-bottom: 2px solid white;
                 border-collapse: collapse;
                 padding: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             p {
-                font-size: 42px;
+                font-size: clamp(1.63rem, calc(1.446rem + 0.893vw), 2.25rem);
             }
         }
     }
 
     .dialog-filter {
-        height: 250px;
+        height: 260px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -427,7 +490,7 @@ main {
 
             input {
                 height: 50px;
-                width: 300px;
+                width: 280px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -440,9 +503,11 @@ main {
         }
 
         .filter-btn {
+            width: 120px;
             padding: 8px;
             border-radius: 40px;
             font-weight: bold;
+            font-size: 20px;
         }
         .filter-btn:hover {
             cursor: pointer;
@@ -481,57 +546,42 @@ main {
     }
 }
 
-.bg-normal {
-    background-color: rgba(168, 167, 122, 0.8);
-}
-.bg-fighting {
-    background-color: rgba(194, 46, 40, 0.8);
-}
-.bg-flying {
-    background-color: rgba(169, 143, 243, 0.8);
-}
-.bg-poison {
-    background-color: rgba(163, 62, 161, 0.8);
-}
-.bg-ground {
-    background-color: rgba(226, 191, 101, 0.8);
-}
-.bg-rock {
-    background-color: rgba(182, 161, 54, 0.8);
-}
-.bg-bug {
-    background-color: rgba(166, 185, 26, 0.8);
-}
-.bg-ghost {
-    background-color: rgba(115, 87, 151, 0.8);
-}
-.bg-steel {
-    background-color: rgba(183, 183, 206, 0.8);
-}
-.bg-fire {
-    background-color: rgba(238, 129, 48, 0.8);
-}
-.bg-water {
-    background-color: rgba(99, 144, 240, 0.8);
-}
-.bg-grass {
-    background-color: rgba(122, 199, 76, 0.8);
-}
-.bg-electric {
-    background-color: rgba(247, 208, 44, 0.8);
-}
-.bg-psychic {
-    background-color: rgba(249, 85, 135, 0.8);
-}
-.bg-ice {
-    background-color: rgba(150, 217, 214, 0.8);
-}
-.bg-dragon {
-    background-color: rgba(111, 53, 252, 0.8);
-}
-.bg-dark {
-    background-color: rgba(112, 87, 70, 0.8);
-}
-.bg-fairy {
-    background-color: rgba(214, 133, 173, 0.8);
+@media screen and (max-width: 768px) {
+    .header {
+        height: 90px;
+        /* justify-content: center; */
+        padding-bottom: 8px;
+
+        .header-content {
+            flex-direction: column;
+        }
+    }
+
+    .pkmn-container {
+        margin-top: 70px !important;
+        /* background-color: red; */
+    }
+
+    /* .main {
+        .load-text {
+            font-size: 42px !important;
+            display: flex;
+            justify-content: center;
+            background-color: red;
+        }
+    } */
+
+    .dialog-img {
+        .pkmn-types img {
+            transform: translateY(-42px) !important;
+        }
+    }
+
+    .dialog-header {
+        text-align: center;
+
+        .header-txt {
+            flex-direction: column;
+        }
+    }
 }
