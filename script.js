@@ -8,7 +8,6 @@ function init() {
 
 function renderPkmn(pokemonList) {
     PKMNREF.innerHTML = "";
-
     for (let i = 0; i < pokemonList.length; i++) {
         PKMNREF.innerHTML += /*html*/ `
             <div class="pkmn" onclick="openDialog(${i})">
@@ -26,7 +25,10 @@ function renderPkmn(pokemonList) {
         setBgColor(i);
         renderTypes(i, pokemonList);
     }
-    renderLoadBtn();
+    setTimeout(() => {
+        filterStatus = false;
+        renderLoadBtn();
+    }, 200);
 }
 
 function renderTypes(i, pokemonList) {
@@ -43,14 +45,14 @@ function renderTypes(i, pokemonList) {
 }
 
 function renderLoadBtn() {
-    const loadRef = document.getElementById(`loadBtn`);
-    if (searchStatus === false) {
+    loadRef.innerHTML = "";
+    if (searchStatus === false && filterStatus == false) {
         loadRef.innerHTML = /*html*/ `
             <button class="load-btn" onclick="loadMore()">
                 Load more
             </button>
         `;
-    } else {
+    } else if (filterStatus == false) {
         loadRef.innerHTML = /*html*/ `
             <button class="load-btn" onclick="reLoad()"> Reset Search
             </button>
@@ -76,15 +78,13 @@ async function getTypes() {
 async function getData() {
     for (let k = forStart; k < dataCount; k++) {
         if (dataStart == 0) dataStart = 1;
+        const fetchNr = parseInt(dataStart, 10) + parseInt(k, 10);
         const response = await fetch(
-            `https://pokeapi.co/api/v2/pokemon/${dataStart + k}`,
+            `https://pokeapi.co/api/v2/pokemon/${fetchNr}`,
         );
         const responseFromJSON = await response.json();
-        // POKEMON.push(responseFromJSON);
         setStats(responseFromJSON);
     }
-    // console.log(POKEMON);
-
     setTimeout(() => {
         renderPkmn(POKEMON);
     }, 1200);
@@ -162,6 +162,12 @@ function setStats(responseFromJSON) {
 function loadMore() {
     dataCount = dataCount + count;
     forStart = forStart + count;
+
+    loadRef.innerHTML = "";
+    loadRef.innerHTML += /*html*/ `
+        <p class="load-txt">Daten werden geladen...</p>
+    `;
+
     getData();
 }
 
@@ -318,28 +324,34 @@ function setOptions() {
     let start = document.getElementById(`inputStart`).value;
     let end = document.getElementById(`inputEnd`).value;
 
+    filterStatus = false;
     if (start != "" && end !== "") {
         if (isNaN(start)) start = 0;
         if (isNaN(end)) end = 40;
-
+        if (start > end) {
+            const tausch = start;
+            start = end;
+            end = tausch;
+        }
         if (start == 1) start = 0;
         else if (start > 1025) start = 1025;
         if (end > 1025) end = 1025;
         else if (end == 0) end = 1;
         dataStart = start;
-        dataCount = end - start;
+        dataCount = end - start + 1;
         count = dataCount;
+        filterStatus = true;
     } else {
         dataStart = 0;
         dataCount = 40;
         count = dataCount;
     }
-
-    // console.log(dataStart);
-    // console.log(dataCount);
-
     endDialog(event);
     PKMNREF.innerHTML = "";
+    PKMNREF.innerHTML += /*html*/ `
+        <p class="load-txt">Daten werden geladen...</p>;
+    `;
+    renderLoadBtn();
     POKEMON = [];
     PKMN = [];
     getData();
