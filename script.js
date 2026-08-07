@@ -249,6 +249,12 @@ function startEventListener(event) {
             endDialog(event);
         }
     });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            endDialog(event);
+        }
+    });
 }
 //#endregion
 
