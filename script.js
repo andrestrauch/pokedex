@@ -62,7 +62,7 @@ function renderLoadBtn() {
 
 function setBgColor(i) {
     let colorRef = document.getElementById(`pkmnColor${i}`);
-    colorRef.classList.add(`bg-${POKEMON[i].typ1}`);
+    colorRef.classList.add(`bg-${PKMN[i].typ1}`);
 }
 
 async function getTypes() {
@@ -173,6 +173,7 @@ function loadMore() {
 
 function reLoad() {
     searchStatus = false;
+    PKMN = POKEMON;
     renderPkmn(POKEMON);
 }
 
@@ -203,6 +204,7 @@ function searchFunction(input) {
     }
     input.value = "";
     renderPkmn(PKMN);
+    document.body.style.overflow = "";
 }
 
 function openDialog(i) {
