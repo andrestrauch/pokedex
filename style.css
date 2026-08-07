@@ -17,13 +17,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        /* background-color: grey; */
         padding: 0 8px;
 
         .left-header {
             display: flex;
             align-items: flex-end;
             gap: 8px;
+
             img {
                 width: 32px;
                 height: 32px;
@@ -33,7 +33,6 @@
         }
 
         .search-section {
-            /* background-color: red; */
             display: flex;
             align-items: flex-end;
             gap: 2px;
@@ -41,15 +40,15 @@
             .filter-btn {
                 width: 90px;
                 height: 26px;
-                border: 2px solid black;
-                border-radius: 40px;
-                font-weight: bold;
-                padding: 6px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 17px;
+                padding: 6px;
                 background-color: rgba(255, 215, 0, 0.95);
+                border: 2px solid black;
+                border-radius: 40px;
+                font-weight: bold;
+                font-size: 17px;
             }
 
             .filter-btn:hover {
@@ -64,16 +63,13 @@
                 input {
                     width: 180px;
                     height: 30px;
-
                     border: 2px solid black;
                     border-radius: 40px;
                     padding: 8px;
-
                     font-size: 22px;
                     font-weight: bold;
                     line-height: 100%;
                     text-align: center;
-                    /* rgb(210, 220, 190) */
                     background-color: rgba(192, 192, 192, 0.85);
                     color: rgba(255, 215, 0, 0.6);
                 }
@@ -94,20 +90,19 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* background-color: grey; */
 
     .load-txt {
         width: 300px;
         height: 62px;
-        background-color: rgba(0, 0, 0, 0.5);
-        font-size: 26px;
-        border-radius: 40px;
-        border: 6px solid black;
-        padding: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        padding: 8px;
+        font-size: 26px;
+        border-radius: 40px;
+        border: 6px solid black;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: rgb(192, 192, 192);
     }
 
     .content {
@@ -118,7 +113,6 @@ main {
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -128,21 +122,16 @@ main {
             width: 100%;
             max-width: 1440px;
             height: fit-content;
-            /* height: calc(4 * 340px); */
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 16px;
-            /* background-color: yellow; */
             padding: 8px;
             margin-top: 50px;
 
             .pkmn {
-                /* display: flex; */
-                /* flex-wrap: wrap; */
                 width: 300px;
                 height: fit-content;
-                /* background-color: rgba(0, 0, 0, 0.65); */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -154,14 +143,12 @@ main {
 
                 .card-header {
                     width: 100%;
-                    /* height: 50px; */
                     height: 60px;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 16px;
                     flex-wrap: wrap;
-                    /* background-color: green; */
+                    padding: 16px;
                     background-color: rgba(0, 0, 0, 0.65);
 
                     p {
@@ -177,8 +164,6 @@ main {
                 .pkmn-img {
                     width: 100%;
                     height: 250px;
-                    /* max-height: 200px; */
-                    /* background-color: rgba(0, 0, 0, 0.2); */
                     border-top: 3px solid black;
                     border-bottom: 3px solid black;
                     display: flex;
@@ -198,12 +183,11 @@ main {
                 .pkmn-types {
                     width: 100%;
                     height: 60px;
-                    /* background-color: red; */
                     background-color: rgba(0, 0, 0, 0.65);
                     display: flex;
                     justify-content: space-evenly;
-                    /* gap: 100px; */
                     padding: 8px;
+
                     img {
                         border: 2px solid black;
                         border-radius: 50%;
@@ -238,22 +222,17 @@ main {
 .dialog.opened {
     width: 95%;
     max-width: 1000px;
-    /* height: 88%; */
-    /* max-height: 950px; */
     margin-top: 70px;
     margin-left: auto;
     margin-right: auto;
     border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 40px;
-    /* transition: all 300ms ease-in-out; */
     color: white;
     overflow: hidden;
-    /* padding-bottom: 8px; */
 
     .dialog-header {
         width: 100%;
-        /* height: 70px; */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -269,7 +248,6 @@ main {
             display: flex;
             justify-content: center;
             align-items: center;
-            /* background-color: grey; */
 
             .header-txt {
                 width: 89%;
@@ -277,16 +255,12 @@ main {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                /* gap: 10px; */
                 line-height: 120%;
-                /* background-color: red; */
                 padding: 0 8px;
 
                 h2 {
-                    /* height: 100%; */
                     display: flex;
                     align-items: center;
-                    /* background-color: green; */
                     font-size: clamp(
                         1.25rem,
                         calc(0.964rem + 1.429vw),
@@ -295,16 +269,13 @@ main {
                 }
 
                 p {
-                    /* height: 100%; */
                     display: flex;
                     align-items: center;
-                    /* background-color: green; */
                     font-size: clamp(
                         1.13rem,
                         calc(0.946rem + 0.893vw),
                         1.75rem
                     );
-                    /* padding-top: 8px; */
                 }
             }
 
@@ -353,29 +324,22 @@ main {
         justify-content: space-between;
         align-items: center;
         border-bottom: 2px solid white;
-        /* gap: 32px; */
 
         .pkmn-img {
             width: 100%;
             height: 100%;
-            /* background-color: red; */
             display: flex;
             align-items: center;
             justify-content: center;
-            /* overflow: hidden; */
 
             img {
                 width: 60%;
-                /* height: fit-content; */
                 object-fit: cover;
                 background-color: rgba(0, 0, 0, 0.3);
                 border-radius: 50%;
                 padding: 8px;
-                /* padding-left: 40px; */
                 transform: translateY(10px);
                 border: 2px solid black;
-                /* z-index: 1;
-                overflow: hidden; */
             }
         }
 
@@ -384,16 +348,15 @@ main {
             width: 100%;
             display: flex;
             justify-content: center;
-            background-color: yellow;
 
             .typ1 {
                 z-index: 2;
                 transform: translateY(10px);
                 position: absolute;
                 left: auto;
+
                 img {
                     height: 64px;
-                    /* background-color: red; */
                     padding-right: 100px;
                 }
             }
@@ -403,10 +366,10 @@ main {
                 transform: translateY(10px);
                 position: absolute;
                 right: auto;
+
                 img {
                     height: 64px;
                     margin-left: 100px;
-                    /* background-color: orange; */
                 }
             }
         }
@@ -415,26 +378,18 @@ main {
     .dialog-data {
         width: 100%;
         height: 460px;
-        /* background-color: red; */
         display: flex;
         justify-content: center;
         align-items: center;
-        /* flex-wrap: wrap; */
         padding: 8px;
 
         .stats {
             width: 50%;
             height: 100%;
-            /* background-color: green; */
-            /* display: flex; */
             text-align: center;
-            /* flex-wrap: wrap; */
-            /* padding-left: 40%; */
             border: 2px solid white;
             border-top-left-radius: 40px;
             border-bottom-left-radius: 40px;
-            /* border-bottom-right-radius: 40px; */
-            /* padding-bottom: 8px; */
 
             h3 {
                 height: 70px;
@@ -456,14 +411,11 @@ main {
         .abilities {
             width: 50%;
             height: 100%;
-            /* height: 489px; */
             background-color: rgba(255, 255, 255, 0.1);
             text-align: center;
             border: 2px solid white;
             border-top-right-radius: 40px;
             border-bottom-right-radius: 40px;
-            /* border-bottom-left-radius: 40px; */
-            /* padding-bottom: 8px; */
 
             h3 {
                 height: 70px;
@@ -493,7 +445,6 @@ main {
         h2 {
             display: flex;
             justify-content: center;
-            /* background-color: grey; */
             border-bottom: 2px white;
             padding: 8px;
             font-size: 38px;
@@ -501,12 +452,9 @@ main {
         }
 
         .filter-inputs {
-            /* width: 50%; */
-            /* height: 200px; */
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* background-color: red; */
             padding: 8px;
             gap: 10px;
 
@@ -549,7 +497,6 @@ main {
     .footer-content {
         width: 100%;
         max-width: 1440px;
-        /* background-color: grey; */
         color: rgb(240, 233, 184);
         display: flex;
         justify-content: center;
@@ -561,6 +508,7 @@ main {
             color: rgb(240, 219, 52);
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: underline;
             cursor: pointer;
@@ -592,17 +540,7 @@ main {
 
     .pkmn-container {
         margin-top: 70px !important;
-        /* background-color: red; */
     }
-
-    /* .main {
-        .load-text {
-            font-size: 42px !important;
-            display: flex;
-            justify-content: center;
-            background-color: red;
-        }
-    } */
 
     .dialog-img {
         .pkmn-types img {

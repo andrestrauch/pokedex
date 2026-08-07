@@ -6,73 +6,14 @@ function init() {
     }, 1000);
 }
 
-function renderPkmn(pokemonList) {
-    PKMNREF.innerHTML = "";
-    for (let i = 0; i < pokemonList.length; i++) {
-        PKMNREF.innerHTML += /*html*/ `
-            <div class="pkmn" onclick="openDialog(${i})">
-                <div class="card-header">
-                    <p>#${pokemonList[i].id2}</p>
-                    <h2>${pokemonList[i].name.toUpperCase()}</h2>
-                </div>
-                <div class="pkmn-img" id="pkmnColor${i}">
-                    <img src="${pokemonList[i].img}" alt="">
-                </div>
-                <div class="pkmn-types" id="pkmnTypes${i}">
-                </div>
-            <div>
-        `;
-        setBgColor(i);
-        renderTypes(i, pokemonList);
-    }
-    setTimeout(() => {
-        filterStatus = false;
-        renderLoadBtn();
-    }, 200);
-}
-
-function renderTypes(i, pokemonList) {
-    const typeRef = document.getElementById(`pkmnTypes${i}`);
-    typeRef.innerHTML = "";
-    typeRef.innerHTML += /*html*/ `
-        <img src="${pokemonList[i].imgT1}" alt="">
-    `;
-    if (pokemonList[i].imgT2 != "") {
-        typeRef.innerHTML += /*html*/ `
-            <img src="${pokemonList[i].imgT2}" alt="">
-        `;
-    }
-}
-
-function renderLoadBtn() {
-    loadRef.innerHTML = "";
-    if (searchStatus === false && filterStatus == false) {
-        loadRef.innerHTML = /*html*/ `
-            <button class="load-btn" onclick="loadMore()">
-                Load more
-            </button>
-        `;
-    } else if (filterStatus == false) {
-        loadRef.innerHTML = /*html*/ `
-            <button class="load-btn" onclick="reLoad()"> Reset Search
-            </button>
-        `;
-    }
-}
-
-function setBgColor(i) {
-    let colorRef = document.getElementById(`pkmnColor${i}`);
-    colorRef.classList.add(`bg-${PKMN[i].typ1}`);
-}
-
+//#region API Data
 async function getTypes() {
     for (let t = 0; t < 18; t++) {
-        let typ = await fetch(`https://pokeapi.co/api/v2/type/${t + 1}`);
-        let typFromJSN = await typ.json();
+        const typ = await fetch(`https://pokeapi.co/api/v2/type/${t + 1}`);
+        const typFromJSN = await typ.json();
         TYPES[t] =
             typFromJSN.sprites["generation-viii"]["sword-shield"].symbol_icon;
     }
-    // console.log(TYPES[11]);
 }
 
 async function getData() {
@@ -88,6 +29,47 @@ async function getData() {
     setTimeout(() => {
         renderPkmn(POKEMON);
     }, 1200);
+}
+//#endregion
+
+//#region Render
+function renderPkmn(pokemonList) {
+    PKMNREF.innerHTML = "";
+    for (let i = 0; i < pokemonList.length; i++) {
+        PKMNREF.innerHTML += renderPkmnTemplate(i, pokemonList);
+        setBgColor(i);
+        renderTypes(i, pokemonList);
+    }
+    setTimeout(() => {
+        filterStatus = false;
+        renderLoadBtn();
+    }, 200);
+}
+
+function renderTypes(i, pokemonList) {
+    const typeRef = document.getElementById(`pkmnTypes${i}`);
+    typeRef.innerHTML = "";
+    typeRef.innerHTML += renderType1Template(i, pokemonList);
+
+    if (pokemonList[i].imgT2 != "") {
+        typeRef.innerHTML += renderType2Template(i, pokemonList);
+    }
+}
+
+function renderLoadBtn() {
+    loadRef.innerHTML = "";
+    if (searchStatus === false && filterStatus == false) {
+        loadRef.innerHTML = renderLoadBtn1Template();
+    } else if (filterStatus == false) {
+        loadRef.innerHTML = renderLoadBtn2Template();
+    }
+}
+//#endregion
+
+//#region Data Set
+function setBgColor(i) {
+    const colorRef = document.getElementById(`pkmnColor${i}`);
+    colorRef.classList.add(`bg-${PKMN[i].typ1}`);
 }
 
 function setType(typing) {
@@ -115,21 +97,38 @@ function setType(typing) {
 }
 
 function setStats(responseFromJSON) {
-    let obj = {};
-    // console.log(responseFromJSON);
-
+    const obj = {};
     obj.name = responseFromJSON.name;
-    obj.id = responseFromJSON.id;
     obj.img = responseFromJSON.sprites.front_default;
+    obj.id = responseFromJSON.id;
+
+    setStatsId2(obj);
+    setStatsTypes(obj, responseFromJSON);
+    setStatsSkills(obj, responseFromJSON);
+
+    POKEMON.push(obj);
+    PKMN = POKEMON;
+}
+
+function setStatsId2(obj) {
+    let nr;
+    if (obj.id < 10) nr = "000";
+    else if (obj.id < 100) nr = "00";
+    else if (obj.id < 999) nr = "0";
+    else nr = "";
+    obj.id2 = nr + obj.id;
+}
+function setStatsTypes(obj, responseFromJSON) {
     obj.typ1 = responseFromJSON.types[0].type.name;
     if (responseFromJSON.types.length > 1)
         obj.typ2 = responseFromJSON.types[1].type.name;
     else obj.typ2 = "";
     obj.imgT1 = setType(obj.typ1);
-    // console.log(obj.imgT1);
     if (obj.typ2 != "") obj.imgT2 = setType(obj.typ2);
     else obj.imgT2 = "";
+}
 
+function setStatsSkills(obj, responseFromJSON) {
     obj.hp = responseFromJSON.stats[0]["base_stat"];
     obj.a = responseFromJSON.stats[1]["base_stat"];
     obj.v = responseFromJSON.stats[2]["base_stat"];
@@ -146,28 +145,15 @@ function setStats(responseFromJSON) {
     if (responseFromJSON.abilities.length > 1) {
         obj.skill2 = responseFromJSON.abilities[1].ability.name;
     }
-
-    let nr;
-    if (obj.id < 10) nr = "000";
-    else if (obj.id < 100) nr = "00";
-    else if (obj.id < 999) nr = "0";
-    else nr = "";
-    obj.id2 = nr + obj.id;
-
-    // console.log(obj);
-    POKEMON.push(obj);
-    PKMN = POKEMON;
 }
+//#endregion
 
+//#region Load Btn
 function loadMore() {
     dataCount = dataCount + count;
     forStart = forStart + count;
-
     loadRef.innerHTML = "";
-    loadRef.innerHTML += /*html*/ `
-        <p class="load-txt">Daten werden geladen...</p>
-    `;
-
+    loadRef.innerHTML += loadDataTemplate();
     getData();
 }
 
@@ -176,7 +162,9 @@ function reLoad() {
     PKMN = POKEMON;
     renderPkmn(POKEMON);
 }
+//#endregion
 
+//#region Search
 function searchStart() {
     const inputRef = document.getElementById(`searchInput`);
     inputRef.onkeydown = function (event) {
@@ -206,64 +194,15 @@ function searchFunction(input) {
     renderPkmn(PKMN);
     document.body.style.overflow = "";
 }
+//#endregion
 
+//#region Dialog
 function openDialog(i) {
     dialogRef.innerHTML = "";
     dialogRef.showModal();
     dialogRef.classList.add(`opened`);
-    dialogRef.innerHTML += /*html*/ `
-        <section class="dialog-header">
-            <div class="header-content">
-                <button onclick="imgLeft(${i})">
-                    <img src="./assets/icons/arrow_left.png" alt="Pfeil nach Links" />
-                </button>
-
-                <div class="header-txt">
-                    <p>#${PKMN[i].id2}</p>
-                    <h2>${PKMN[i].name.toUpperCase()}</h2>
-                </div>
-            
-                <button onclick="imgRight(${i})">
-                    <img src="./assets/icons/arrow_right.png" alt="Pfeil nach Rechts" />
-                </button>
-            </div>
-            <button class="close-btn" onclick="endDialog(event)">X</button>
-        </section>
-
-        <section class="dialog-img" id="dialogPkmnColor${i}">
-            <div class="pkmn-img">
-                <img src="${PKMN[i].img}" alt="">
-            </div>
-            <div class="pkmn-types">
-                <div class="typ1">
-                    <img src="${PKMN[i].imgT1}" alt="">
-                </div>
-                <div class="typ2">
-                    <img src="${PKMN[i].imgT2}" alt="">
-                </div>
-                </div>
-        </section>
-
-        <section class="dialog-data">
-            <div class="stats">
-                <h3>STATS</h3><br> 
-                <p>HP: ${PKMN[i].hp}</p><br> 
-                <p> A: ${PKMN[i].a}</p><br>
-                <p> V: ${PKMN[i].v}</p><br>
-                <p>SA: ${PKMN[i].sa}</p><br>
-                <p>SV: ${PKMN[i].sv}</p><br>
-                <p> I: ${PKMN[i].i}</p>
-            </div>
-            <div class="abilities">
-                <h3>ABILITY</h3><br> 
-                <p>${PKMN[i].skill1}</p><br>
-                <p>${PKMN[i].skill2}</p><br>
-                <p>${PKMN[i].skill3}</p>
-            </div>
-            
-        </section>
-    `;
-    let dialogColorRef = document.getElementById(`dialogPkmnColor${i}`);
+    dialogRef.innerHTML += openDialogTemplate(i);
+    const dialogColorRef = document.getElementById(`dialogPkmnColor${i}`);
     dialogColorRef.classList.add(`bg-${PKMN[i].typ1}`);
     startEventListener(event);
     if (document.body.style.overflow == "hidden")
@@ -278,7 +217,7 @@ function endDialog(event) {
     document.body.style.overflow = "";
 }
 
-function imgLeft(i) {
+function countLeft(i) {
     if (i == 0) {
         i = PKMN.length - 1;
     } else {
@@ -288,7 +227,7 @@ function imgLeft(i) {
     openDialog(i);
 }
 
-function imgRight(i) {
+function countRight(i) {
     if (i == PKMN.length - 1) {
         i = 0;
     } else {
@@ -311,59 +250,56 @@ function startEventListener(event) {
         }
     });
 }
+//#endregion
 
+//#region Nr Filter
 function openOptions() {
     dialogRef.innerHTML = "";
-
     dialogRef.showModal();
     dialogRef.classList.add(`opened`);
-
-    dialogRef.innerHTML += /*html*/ `
-        <section class="dialog-filter">
-            <h2>Filter Options</h2>
-            <div class="filter-inputs">
-                <input typ="text" id="inputStart" placeholder="Start Nr (1-1025)">
-                <input typ="text" id="inputEnd" placeholder="End Nr (1-1025)">
-            </div>
-            <button class="filter-btn" onclick="setOptions()">Load Data</button>
-        </section>
-    `;
+    dialogRef.innerHTML += openOptionsTemplate();
     startEventListener(event);
 }
 
 function setOptions() {
     let start = document.getElementById(`inputStart`).value;
     let end = document.getElementById(`inputEnd`).value;
-
     filterStatus = false;
     if (start != "" && end !== "") {
-        if (isNaN(start)) start = 0;
-        if (isNaN(end)) end = 40;
-        if (start > end) {
-            const tausch = start;
-            start = end;
-            end = tausch;
-        }
-        if (start == 1) start = 0;
-        else if (start > 1025) start = 1025;
-        if (end > 1025) end = 1025;
-        else if (end == 0) end = 1;
-        dataStart = start;
-        dataCount = end - start + 1;
-        count = dataCount;
+        correctOptions(start, end);
         filterStatus = true;
     } else {
         dataStart = 0;
         dataCount = 40;
         count = dataCount;
     }
+    runOptions();
+}
+
+function correctOptions(start, end) {
+    if (isNaN(start)) start = 0;
+    if (isNaN(end)) end = 40;
+    if (start > end) {
+        const tausch = start;
+        start = end;
+        end = tausch;
+    }
+    if (start > 1025) start = 1025;
+    if (end > 1025) end = 1025;
+    else if (end == 0) end = 1;
+    dataStart = start;
+    dataCount = end - start;
+    dataCount = dataCount + 1;
+    count = dataCount;
+}
+
+function runOptions() {
     endDialog(event);
     PKMNREF.innerHTML = "";
-    PKMNREF.innerHTML += /*html*/ `
-        <p class="load-txt">Daten werden geladen...</p>;
-    `;
+    PKMNREF.innerHTML += loadDataTemplate();
     renderLoadBtn();
     POKEMON = [];
     PKMN = [];
     getData();
 }
+//#endregion
