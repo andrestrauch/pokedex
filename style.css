@@ -57,14 +57,14 @@ body::-webkit-scrollbar {
             }
 
             .search-btn {
-                width: 90px;
+                width: 80px;
                 height: 30px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding: 6px;
-                background-color: rgb(192, 192, 192);
-                color: rgb(255, 236, 128);
+                background-color: rgb(255, 236, 128);
+                color: black;
                 border: 2px solid black;
                 border-radius: 40px;
                 font-weight: bold;
@@ -91,7 +91,7 @@ body::-webkit-scrollbar {
             }
             .search-btn:hover {
                 cursor: pointer;
-                border: 2px solid rgb(255, 236, 128);
+                border: 2px solid rgb(192, 192, 192);
             }
 
             img {
