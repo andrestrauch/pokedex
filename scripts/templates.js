@@ -6,7 +6,10 @@ function renderPkmnTemplate(i, pokemonList) {
                 <h2>${pokemonList[i].name.toUpperCase()}</h2>
             </div>
             <div class="pkmn-img" id="pkmnColor${i}">
-                <img src="${pokemonList[i].img}" alt="">
+                <div class="bg-circle">
+                    <img src="${pokemonList[i].img}" alt="">
+                </div>
+                
             </div>
             <div class="pkmn-types" id="pkmnTypes${i}">
             </div>
@@ -66,7 +69,9 @@ function openDialogTemplate(i) {
 
         <section class="dialog-img" id="dialogPkmnColor${i}">
             <div class="pkmn-img">
-                <img src="${PKMN[i].img}" alt="">
+                <div class="bg-circle">
+                    <img src="${PKMN[i].img}" alt="">
+                </div>
             </div>
             <div class="pkmn-types">
                 <div class="typ1">

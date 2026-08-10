@@ -99,7 +99,7 @@ function setType(typing) {
 function setStats(responseFromJSON) {
     const obj = {};
     obj.name = responseFromJSON.name;
-    obj.img = responseFromJSON.sprites.front_default;
+    obj.img = responseFromJSON.sprites.other.home.front_default;
     obj.id = responseFromJSON.id;
 
     setStatsId2(obj);

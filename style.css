@@ -123,7 +123,6 @@ main {
     }
 
     .search-error {
-        /* width: 500px; */
         height: 62px;
         display: flex;
         align-items: center;
@@ -199,15 +198,27 @@ main {
                     border-bottom: 3px solid black;
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                     padding: 4px 0;
+                    /* overflow: hidden; */
 
-                    img {
-                        width: 90%;
-                        object-fit: cover;
+                    .bg-circle {
+                        width: 85%;
+                        height: 95%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
                         background-color: rgba(0, 0, 0, 0.3);
                         border-radius: 50%;
                         border: 2px solid black;
-                        padding: 8px;
+                        padding: 16px;
+                        overflow: hidden;
+
+                        img {
+                            height: 210px;
+                            object-fit: cover;
+                            transform: translateY(-10px);
+                        }
                     }
                 }
 
@@ -365,14 +376,24 @@ main {
             align-items: center;
             justify-content: center;
 
-            img {
-                width: 60%;
-                object-fit: cover;
+            .bg-circle {
+                width: 65%;
+                height: 90%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
                 background-color: rgba(0, 0, 0, 0.3);
                 border-radius: 50%;
                 padding: 8px;
-                transform: translateY(10px);
                 border: 2px solid black;
+                overflow: hidden;
+
+                img {
+                    height: 120%;
+                    object-fit: cover;
+                    transform: translateY(-10px);
+                }
             }
         }
 
