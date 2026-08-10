@@ -42,7 +42,8 @@ function renderPkmn(pokemonList) {
     }
     setTimeout(() => {
         filterStatus = false;
-        renderLoadBtn();
+        if (POKEMON.length == 0) renderErrorBtn();
+        if (POKEMON.length > 0) renderLoadBtn();
     }, 200);
 }
 
@@ -63,6 +64,10 @@ function renderLoadBtn() {
     } else if (filterStatus == false) {
         loadRef.innerHTML = renderLoadBtn2Template();
     }
+}
+
+function renderErrorBtn() {
+    PKMNREF.innerHTML += ErrorBtnTemplate();
 }
 //#endregion
 

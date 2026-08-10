@@ -41,6 +41,15 @@ function renderLoadBtn2Template() {
     `;
 }
 
+function ErrorBtnTemplate() {
+    return /*html*/ `
+        <div class="error-btn">
+            <p>Daten konnten nicht geladen werden...</p>
+            <p>Seite neu laden!</p>
+        </div>
+    `;
+}
+
 function loadDataTemplate() {
     return /*html*/ `
         <p aria-label="load text"class="load-txt">Daten werden geladen...</p>
