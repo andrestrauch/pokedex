@@ -37,64 +37,62 @@
             align-items: flex-end;
             gap: 2px;
 
-            .pamo-search {
+            input {
+                width: 200px;
+                height: 30px;
+                border: 2px solid black;
+                border-radius: 40px;
+                padding: 8px;
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 100%;
+                text-align: center;
+                background-color: rgba(255, 215, 0, 1);
+                /* color: rgba(255, 215, 0, 0.6); */
+                /* rgba(192, 192, 192, 0.85); */
+            }
+
+            .search-btn {
+                width: 90px;
+                height: 30px;
                 display: flex;
-                align-items: flex-end;
-                gap: 2px;
+                justify-content: center;
+                align-items: center;
+                padding: 6px;
+                background-color: rgb(192, 192, 192);
+                color: rgb(255, 236, 128);
+                border: 2px solid black;
+                border-radius: 40px;
+                font-weight: bold;
+                font-size: 17px;
+            }
 
-                input {
-                    width: 200px;
-                    height: 30px;
-                    border: 2px solid black;
-                    border-radius: 40px;
-                    padding: 8px;
-                    font-size: 18px;
-                    font-weight: bold;
-                    line-height: 100%;
-                    text-align: center;
-                    background-color: rgba(255, 215, 0, 1);
-                    /* color: rgba(255, 215, 0, 0.6); */
-                    /* rgba(192, 192, 192, 0.85); */
-                }
+            .filter-btn {
+                width: 90px;
+                height: 26px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 6px;
+                background-color: rgb(192, 192, 192);
+                border: 2px solid black;
+                border-radius: 40px;
+                font-weight: bold;
+                font-size: 17px;
+            }
 
-                .search-btn {
-                    width: 90px;
-                    height: 26px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 6px;
-                    background-color: rgb(192, 192, 192);
-                    color: rgb(255, 236, 128);
-                    border: 2px solid black;
-                    border-radius: 40px;
-                    font-weight: bold;
-                    font-size: 17px;
-                }
+            .filter-btn:hover {
+                cursor: pointer;
+                border: 2px solid rgb(255, 236, 128);
+            }
+            .search-btn:hover {
+                cursor: pointer;
+                border: 2px solid rgb(255, 236, 128);
+            }
 
-                .filter-btn {
-                    width: 90px;
-                    height: 26px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 6px;
-                    background-color: rgb(192, 192, 192);
-                    border: 2px solid black;
-                    border-radius: 40px;
-                    font-weight: bold;
-                    font-size: 17px;
-                }
-
-                .filter-btn:hover {
-                    cursor: pointer;
-                    border: 2px solid rgba(192, 192, 192, 0.85);
-                }
-
-                img {
-                    width: 42px;
-                    height: 42px;
-                }
+            img {
+                width: 42px;
+                height: 42px;
             }
         }
     }
@@ -158,6 +156,12 @@ main {
             gap: 16px;
             padding: 8px;
             margin-top: 50px;
+
+            button {
+                width: 300px;
+                border: none;
+                border-radius: 20px;
+            }
 
             .pkmn {
                 width: 300px;

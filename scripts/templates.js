@@ -1,19 +1,20 @@
 function renderPkmnTemplate(i, pokemonList) {
     return /*html*/ `
-        <div class="pkmn" onclick="openDialog(${i})">
-            <div class="card-header">
-                <p>#${pokemonList[i].id2}</p>
-                <h2>${pokemonList[i].name.toUpperCase()}</h2>
-            </div>
-            <div class="pkmn-img" id="pkmnColor${i}">
-                <div class="bg-circle">
-                    <img src="${pokemonList[i].img}" alt="">
+        <button onclick="openDialog(${i})">
+            <section class="pkmn">
+                <div class="card-header">
+                    <p>#${pokemonList[i].id2}</p>
+                    <h2>${pokemonList[i].name.toUpperCase()}</h2>
                 </div>
-                
-            </div>
-            <div class="pkmn-types" id="pkmnTypes${i}">
-            </div>
-        <div>
+                <div class="pkmn-img" id="pkmnColor${i}">
+                    <div class="bg-circle">
+                        <img src="${pokemonList[i].img}" alt="">
+                    </div>
+                </div>
+                <div class="pkmn-types" id="pkmnTypes${i}">
+                </div>
+            <section>
+        </button>
     `;
 }
 
