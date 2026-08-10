@@ -173,7 +173,11 @@ function reLoad() {
 function searchStart() {
     const inputRef = document.getElementById(`searchInput`);
     searchStatus = false;
-    if (inputRef.value != "" && inputRef.value.length > 2) {
+    let okSearch = false;
+    if (!isNaN(inputRef.value)) {
+        okSearch = true;
+    } else if (inputRef.value.length > 2) okSearch = true;
+    if (inputRef.value != "" && okSearch == true) {
         searchFunction(inputRef);
     } else {
         PKMNREF.innerHTML = "";
