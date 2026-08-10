@@ -61,7 +61,7 @@ function openDialogTemplate(i) {
                 </div>
             
                 <button onclick="countRight(${i})">
-                    <img data-id ="next-button" src="./assets/icons/arrow_right.png" alt="arrow right" />
+                    <img data-id ="next-button" tabindex="-1" id="nextBtn" src="./assets/icons/arrow_right.png" alt="arrow right" />
                 </button>
             </div>
             <button data-id ="close-dialog-button" class="close-btn" onclick="endDialog(event)">X</button>

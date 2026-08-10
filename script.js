@@ -226,6 +226,7 @@ function openDialog(i) {
     if (document.body.style.overflow == "hidden")
         document.body.style.overflow = "";
     else document.body.style.overflow = "hidden";
+    setFocus();
 }
 
 function endDialog(event) {
@@ -267,12 +268,16 @@ function startEventListener(event) {
             endDialog(event);
         }
     });
-
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             endDialog(event);
         }
     });
+}
+
+function setFocus() {
+    const elemRef = document.getElementById(`nextBtn`);
+    elemRef.focus();
 }
 //#endregion
 
