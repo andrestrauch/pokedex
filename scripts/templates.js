@@ -1,6 +1,6 @@
 function renderPkmnTemplate(i, pokemonList) {
     return /*html*/ `
-        <button aria-label="pokemon card" data id ="card" onclick="openDialog(${i})">
+        <button aria-label="pokemon card" data-id ="card" onclick="openDialog(${i})">
             <section class="pkmn">
                 <div class="card-header">
                     <p>#${pokemonList[i].id2}</p>
@@ -8,7 +8,7 @@ function renderPkmnTemplate(i, pokemonList) {
                 </div>
                 <div class="pkmn-img" id="pkmnColor${i}">
                     <div class="bg-circle">
-                        <img data id ="card-image" src="${pokemonList[i].img}" alt="pokemon image">
+                        <img data-id ="card-image" src="${pokemonList[i].img}" alt="pokemon image">
                     </div>
                 </div>
                 <div class="pkmn-types" id="pkmnTypes${i}"></div>
@@ -31,7 +31,7 @@ function renderType2Template(i, pokemonList) {
 
 function renderLoadBtn1Template() {
     return /*html*/ `
-        <button aria-label="load more button" data id ="load-more-button"class="load-btn" onclick="loadMore()">Load more</button>
+        <button aria-label="load more button" data-id ="load-more-button"class="load-btn" onclick="loadMore()">Load more</button>
     `;
 }
 
@@ -52,25 +52,25 @@ function openDialogTemplate(i) {
         <header class="dialog-header">
             <div class="header-content">
                 <button onclick="countLeft(${i})">
-                    <img data id ="prev-button" src="./assets/icons/arrow_left.png" alt="arrow left" />
+                    <img data-id ="prev-button" src="./assets/icons/arrow_left.png" alt="arrow left" />
                 </button>
 
                 <div class="header-txt">
                     <p>#${PKMN[i].id2}</p>
-                    <h2 data id ="overlay-pokemon-name">${PKMN[i].name.toUpperCase()}</h2>
+                    <h2 data-id ="overlay-pokemon-name">${PKMN[i].name.toUpperCase()}</h2>
                 </div>
             
                 <button onclick="countRight(${i})">
-                    <img data id ="next-button" src="./assets/icons/arrow_right.png" alt="arrow right" />
+                    <img data-id ="next-button" src="./assets/icons/arrow_right.png" alt="arrow right" />
                 </button>
             </div>
-            <button data id ="close-dialog-button" class="close-btn" onclick="endDialog(event)">X</button>
+            <button data-id ="close-dialog-button" class="close-btn" onclick="endDialog(event)">X</button>
         </header>
 
         <section class="dialog-img" id="dialogPkmnColor${i}">
             <article class="pkmn-img">
                 <div class="bg-circle">
-                    <img data id ="dialog-image" src="${PKMN[i].img}" alt="pokemon image">
+                    <img data-id ="dialog-image" src="${PKMN[i].img}" alt="pokemon image">
                 </div>
             </article>
             <article class="pkmn-types">
@@ -113,5 +113,17 @@ function openOptionsTemplate() {
             </div>
             <button aria-label="run filter button" class="filter-btn" onclick="setOptions()">Load Data</button>
         </section>
+    `;
+}
+
+function searchErrorTemplate() {
+    return /*html*/ `
+        <p data-id ="not-found" class="search-error">Keine Treffer! Suche ab 3 Buchstaben...</p> 
+    `;
+}
+
+function searchError2Template(input) {
+    return /*html*/ `
+        <p data-id ="not-found" class="search-error">Keine Treffer! Mit (${input.value})</p> 
     `;
 }

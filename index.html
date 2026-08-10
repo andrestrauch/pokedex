@@ -34,16 +34,14 @@
                 <section aria-label="search section" class="search-section">
                     <input
                         aria-label="search input"
-                        data
-                        id="search-input"
+                        data-id="search-input"
                         id="searchInput"
                         type="text"
                         placeholder="Name, Nr or Type =>"
                     />
                     <button
                         aria-label="search button"
-                        data
-                        id="search-button"
+                        data-id="search-button"
                         class="search-btn"
                         onclick="searchStart()"
                     >
@@ -64,7 +62,7 @@
             </section>
         </header>
 
-        <main data id="content">
+        <main data-id="content">
             <section class="content">
                 <div class="pkmn-container" id="poke">
                     <p aria-lanbel="load text" class="load-txt">
@@ -75,9 +73,8 @@
             </section>
 
             <dialog
+                data-id="dialog"
                 aria-label="big view"
-                data
-                id="dialog"
                 id="myDialog"
                 class="dialog"
             ></dialog>

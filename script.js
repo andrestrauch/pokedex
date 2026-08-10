@@ -172,10 +172,7 @@ function searchStart() {
         searchFunction(inputRef);
     } else {
         PKMNREF.innerHTML = "";
-
-        PKMNREF.innerHTML += /*html*/ `
-        <p data id ="not-found" class="search-error">Keine Treffer! Suche ab 3 Buchstaben...</p> 
-        `;
+        PKMNREF.innerHTML += searchErrorTemplate();
         searchStatus = true;
         renderLoadBtn();
         inputRef.value = "";
@@ -184,6 +181,18 @@ function searchStart() {
 
 function searchFunction(input) {
     PKMN = [];
+    searchFilter(input);
+    if (PKMN.length == 0) {
+        PKMNREF.innerHTML = "";
+        PKMNREF.innerHTML += searchError2Template(input);
+        renderLoadBtn();
+    }
+    input.value = "";
+    document.body.style.overflow = "";
+    if (PKMN.length > 0) renderPkmn(PKMN);
+}
+
+function searchFilter(input) {
     if (input.value != "" && POKEMON.length > 0) {
         searchStatus = true;
         const filterPKMN = POKEMON.filter(
@@ -198,20 +207,6 @@ function searchFunction(input) {
         PKMN = POKEMON;
         searchStatus = false;
     }
-
-    if (PKMN.length == 0) {
-        PKMNREF.innerHTML = "";
-
-        PKMNREF.innerHTML += /*html*/ `
-        <p data id ="not-found" class="search-error">Keine Treffer! Mit (${input.value})</p> 
-        `;
-        renderLoadBtn();
-    }
-
-    input.value = "";
-    document.body.style.overflow = "";
-
-    if (PKMN.length > 0) renderPkmn(PKMN);
 }
 //#endregion
 
