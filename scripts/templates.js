@@ -1,6 +1,6 @@
 function renderPkmnTemplate(i, pokemonList) {
     return /*html*/ `
-        <button onclick="openDialog(${i})">
+        <button aria-label="pokemon card" data id ="card" onclick="openDialog(${i})">
             <section class="pkmn">
                 <div class="card-header">
                     <p>#${pokemonList[i].id2}</p>
@@ -8,11 +8,10 @@ function renderPkmnTemplate(i, pokemonList) {
                 </div>
                 <div class="pkmn-img" id="pkmnColor${i}">
                     <div class="bg-circle">
-                        <img src="${pokemonList[i].img}" alt="">
+                        <img data id ="card-image" src="${pokemonList[i].img}" alt="pokemon image">
                     </div>
                 </div>
-                <div class="pkmn-types" id="pkmnTypes${i}">
-                </div>
+                <div class="pkmn-types" id="pkmnTypes${i}"></div>
             <section>
         </button>
     `;
@@ -20,68 +19,68 @@ function renderPkmnTemplate(i, pokemonList) {
 
 function renderType1Template(i, pokemonList) {
     return /*html*/ `
-        <img src="${pokemonList[i].imgT1}" alt="">
+        <img src="${pokemonList[i].imgT1}" alt="pokemon type1 image">
     `;
 }
 
 function renderType2Template(i, pokemonList) {
     return /*html*/ `
-        <img src="${pokemonList[i].imgT2}" alt="">
+        <img src="${pokemonList[i].imgT2}" alt="pokemon type2 image">
     `;
 }
 
 function renderLoadBtn1Template() {
     return /*html*/ `
-        <button class="load-btn" onclick="loadMore()">Load more</button>
+        <button aria-label="load more button" data id ="load-more-button"class="load-btn" onclick="loadMore()">Load more</button>
     `;
 }
 
 function renderLoadBtn2Template() {
     return /*html*/ `
-        <button class="load-btn" onclick="reLoad()">Reset Search</button>
+        <button aria-label="reload button" class="load-btn" onclick="reLoad()">Reset Search</button>
     `;
 }
 
 function loadDataTemplate() {
     return /*html*/ `
-        <p class="load-txt">Daten werden geladen...</p>
+        <p aria-label="load text"class="load-txt">Daten werden geladen...</p>
     `;
 }
 
 function openDialogTemplate(i) {
     return /*html*/ `
-        <section class="dialog-header">
+        <header class="dialog-header">
             <div class="header-content">
                 <button onclick="countLeft(${i})">
-                    <img src="./assets/icons/arrow_left.png" alt="Pfeil nach Links" />
+                    <img data id ="prev-button" src="./assets/icons/arrow_left.png" alt="arrow left" />
                 </button>
 
                 <div class="header-txt">
                     <p>#${PKMN[i].id2}</p>
-                    <h2>${PKMN[i].name.toUpperCase()}</h2>
+                    <h2 data id ="overlay-pokemon-name">${PKMN[i].name.toUpperCase()}</h2>
                 </div>
             
                 <button onclick="countRight(${i})">
-                    <img src="./assets/icons/arrow_right.png" alt="Pfeil nach Rechts" />
+                    <img data id ="next-button" src="./assets/icons/arrow_right.png" alt="arrow right" />
                 </button>
             </div>
-            <button class="close-btn" onclick="endDialog(event)">X</button>
-        </section>
+            <button data id ="close-dialog-button" class="close-btn" onclick="endDialog(event)">X</button>
+        </header>
 
         <section class="dialog-img" id="dialogPkmnColor${i}">
-            <div class="pkmn-img">
+            <article class="pkmn-img">
                 <div class="bg-circle">
-                    <img src="${PKMN[i].img}" alt="">
+                    <img data id ="dialog-image" src="${PKMN[i].img}" alt="pokemon image">
                 </div>
-            </div>
-            <div class="pkmn-types">
+            </article>
+            <article class="pkmn-types">
                 <div class="typ1">
-                    <img src="${PKMN[i].imgT1}" alt="">
+                    <img src="${PKMN[i].imgT1}" alt="pokemon type1 imgage">
                 </div>
                 <div class="typ2">
-                    <img src="${PKMN[i].imgT2}" alt="">
+                    <img src="${PKMN[i].imgT2}" alt="pokemon type2 image">
                 </div>
-                </div>
+            </article>
         </section>
 
         <section class="dialog-data">
@@ -100,20 +99,19 @@ function openDialogTemplate(i) {
                 <p>${PKMN[i].skill2}</p><br>
                 <p>${PKMN[i].skill3}</p>
             </div>
-            
         </section>
     `;
 }
 
 function openOptionsTemplate() {
     return /*html*/ `
-        <section class="dialog-filter">
+        <section aria-label="filter options" class="dialog-filter">
             <h2>Filter Options</h2>
             <div class="filter-inputs">
                 <input typ="text" id="inputStart" placeholder="Start Nr (1-1025)">
                 <input typ="text" id="inputEnd" placeholder="End Nr (1-1025)">
             </div>
-            <button class="filter-btn" onclick="setOptions()">Load Data</button>
+            <button aria-label="run filter button" class="filter-btn" onclick="setOptions()">Load Data</button>
         </section>
     `;
 }

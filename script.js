@@ -174,7 +174,7 @@ function searchStart() {
         PKMNREF.innerHTML = "";
 
         PKMNREF.innerHTML += /*html*/ `
-        <p class="search-error">Keine Treffer! Suche ab 3 Buchstaben...</p> 
+        <p data id ="not-found" class="search-error">Keine Treffer! Suche ab 3 Buchstaben...</p> 
         `;
         searchStatus = true;
         renderLoadBtn();
@@ -203,7 +203,7 @@ function searchFunction(input) {
         PKMNREF.innerHTML = "";
 
         PKMNREF.innerHTML += /*html*/ `
-        <p class="search-error">Keine Treffer! Mit (${input.value})</p> 
+        <p data id ="not-found" class="search-error">Keine Treffer! Mit (${input.value})</p> 
         `;
         renderLoadBtn();
     }
