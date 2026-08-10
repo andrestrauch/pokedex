@@ -216,6 +216,10 @@ function openDialog(i) {
     dialogRef.showModal();
     dialogRef.classList.add(`opened`);
     dialogRef.innerHTML += openDialogTemplate(i);
+    if (PKMN[i].imgT2 != "") {
+        const typ2Ref = document.getElementById(`dialogType2${i}`);
+        typ2Ref.innerHTML = renderType2Template(i, PKMN);
+    }
     const dialogColorRef = document.getElementById(`dialogPkmnColor${i}`);
     dialogColorRef.classList.add(`bg-${PKMN[i].typ1}`);
     startEventListener(event);

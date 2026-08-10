@@ -77,8 +77,7 @@ function openDialogTemplate(i) {
                 <div class="typ1">
                     <img src="${PKMN[i].imgT1}" alt="pokemon type1 imgage">
                 </div>
-                <div class="typ2">
-                    <img src="${PKMN[i].imgT2}" alt="pokemon type2 image">
+                <div id="dialogType2${i}" class="typ2">
                 </div>
             </article>
         </section>
