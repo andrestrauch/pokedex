@@ -105,7 +105,7 @@ body::-webkit-scrollbar {
 main {
     width: 100%;
     height: 100%;
-    min-height: calc(100vh + 60px - 50px - 60px);
+    min-height: calc(100svh + 60px - 50px - 60px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -155,7 +155,7 @@ main {
     .content {
         width: 100%;
         height: 100%;
-        min-height: calc(100vh + 60px - 60px - 50px);
+        min-height: calc(100svh + 60px - 60px - 50px);
         background-image: url("./assets/img/pamo-bg.jpg");
         background-position: center;
         background-repeat: no-repeat;
@@ -290,17 +290,22 @@ main {
 .dialog.opened {
     width: 95%;
     max-width: 1000px;
-    margin-top: 70px;
+    height: 95%;
+    max-height: 900px;
+    margin-top: 16px;
     margin-left: auto;
     margin-right: auto;
     border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 40px;
     color: white;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
 
     .dialog-header {
         width: 100%;
+        min-height: 60px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -309,7 +314,6 @@ main {
         font-size: 32px;
         border-bottom: 2px solid white;
         padding: 8px;
-        z-index: 2;
 
         .header-content {
             width: 92%;
@@ -386,7 +390,7 @@ main {
 
     .dialog-img {
         width: 100%;
-        height: clamp(9.375rem, calc(4.911rem + 22.321vw), 25rem);
+        height: 250px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -401,8 +405,9 @@ main {
             justify-content: center;
 
             .bg-circle {
-                width: 65%;
+                width: 90%;
                 height: 90%;
+                max-width: 600px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -414,7 +419,7 @@ main {
                 overflow: hidden;
 
                 img {
-                    height: 120%;
+                    height: 130%;
                     object-fit: cover;
                     transform: translateY(-10px);
                 }
@@ -426,6 +431,7 @@ main {
             width: 100%;
             display: flex;
             justify-content: center;
+            padding-top: 5px;
 
             .typ1 {
                 z-index: 2;
@@ -455,11 +461,11 @@ main {
 
     .dialog-data {
         width: 100%;
-        height: 460px;
+        height: 100%;
         display: flex;
         justify-content: center;
-        align-items: center;
         padding: 8px;
+        overflow: hidden;
 
         .stats {
             width: 50%;
@@ -468,21 +474,36 @@ main {
             border: 2px solid white;
             border-top-left-radius: 40px;
             border-bottom-left-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
 
             h3 {
-                height: 70px;
-                font-size: clamp(2.25rem, calc(2.143rem + 0.536vw), 2.63rem);
+                font-size: clamp(1.75rem, calc(1.5rem + 1.25vw), 2.63rem);
                 font-weight: bold;
                 border-bottom: 2px solid white;
                 border-collapse: collapse;
-                padding: 8px;
+                padding: 16px 8px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
 
-            p {
-                font-size: 36px;
+            .stats-p {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                text-align: center;
+                flex-wrap: nowrap;
+                overflow-y: auto;
+
+                p {
+                    font-size: clamp(1.25rem, calc(0.75rem + 1.25vw), 2.5rem);
+                }
             }
         }
 
@@ -494,21 +515,35 @@ main {
             border: 2px solid white;
             border-top-right-radius: 40px;
             border-bottom-right-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
 
             h3 {
-                height: 70px;
                 font-size: clamp(1.75rem, calc(1.5rem + 1.25vw), 2.63rem);
                 font-weight: bold;
                 border-bottom: 2px solid white;
                 border-collapse: collapse;
-                padding: 8px;
+                padding: 16px 8px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
 
-            p {
-                font-size: clamp(1.63rem, calc(1.446rem + 0.893vw), 2.25rem);
+            .ability-p {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                flex-wrap: nowrap;
+                text-align: center;
+                overflow-y: auto;
+
+                p {
+                    font-size: clamp(1.2rem, calc(0.964rem + 1.429vw), 2.2rem);
+                }
             }
         }
     }
@@ -584,7 +619,7 @@ main {
         justify-content: center;
         align-items: center;
         gap: 4px;
-        font-size: 20px;
+        font-size: 18px;
 
         a {
             color: rgb(240, 219, 52);
@@ -602,7 +637,7 @@ main {
 
 @media screen and (max-width: 768px) {
     .header {
-        height: 90px;
+        height: 80px;
         justify-content: center;
 
         .header-content {
@@ -626,7 +661,7 @@ main {
 
     .dialog-img {
         .pkmn-types img {
-            transform: translateY(-42px) !important;
+            transform: translateY(-55px) !important;
         }
     }
 
@@ -637,12 +672,19 @@ main {
             flex-direction: column;
         }
     }
+
+    /* .dialog-data {
+        height: calc(
+            clamp(15.625rem, calc(-15.688rem + 83.5svh), 36.5rem) - 32px
+        ) !important;
+    } */
 }
 
 @media screen and (max-width: 382px) {
+    .header {
+        height: 80px;
+    }
     .search-section {
-        /* flex-direction: column; */
-        /* background-color: red; */
         align-items: center !important;
 
         input {

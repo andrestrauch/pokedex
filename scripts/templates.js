@@ -94,18 +94,22 @@ function openDialogTemplate(i) {
         <section class="dialog-data">
             <div class="stats">
                 <h3>STATS</h3><br> 
-                <p>HP: ${PKMN[i].hp}</p><br> 
-                <p> A: ${PKMN[i].a}</p><br>
-                <p> V: ${PKMN[i].v}</p><br>
-                <p>SA: ${PKMN[i].sa}</p><br>
-                <p>SV: ${PKMN[i].sv}</p><br>
-                <p> I: ${PKMN[i].i}</p>
+                <div class="stats-p">
+                    <p>HP: ${PKMN[i].hp}</p><br> 
+                    <p> A: ${PKMN[i].a}</p><br>
+                    <p> V: ${PKMN[i].v}</p><br>
+                    <p>SA: ${PKMN[i].sa}</p><br>
+                    <p>SV: ${PKMN[i].sv}</p><br>
+                    <p> I: ${PKMN[i].i}</p>
+                </div>
             </div>
             <div class="abilities">
                 <h3>ABILITY</h3><br> 
-                <p>${PKMN[i].skill1}</p><br>
-                <p>${PKMN[i].skill2}</p><br>
-                <p>${PKMN[i].skill3}</p>
+                <div class="ability-p">
+                    <p>${PKMN[i].skill1}</p><br>
+                    <p>${PKMN[i].skill2}</p><br>
+                    <p>${PKMN[i].skill3}</p>
+                </div>
             </div>
         </section>
     `;
